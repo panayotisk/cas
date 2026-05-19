@@ -3,6 +3,7 @@
 namespace Subfission\Cas\Tests;
 
 use Faker\Factory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Subfission\Cas\CasManager;
@@ -48,9 +49,7 @@ class CasManagerTest extends TestCase
         $this->makeCasManager();
     }
 
-    /**
-     * @dataProvider setVerboseChecks
-     */
+    #[DataProvider('setVerboseChecks')]
     public function testSetsVerbose(bool $verbose): void
     {
         $this->casProxy->expects($this->once())->method('setVerbose')
@@ -59,7 +58,7 @@ class CasManagerTest extends TestCase
         $this->makeCasManager(['cas_verbose_errors' => $verbose]);
     }
 
-    public function setVerboseChecks(): array
+    public static function setVerboseChecks(): array
     {
         return [
             'verbose' => [true],
@@ -67,9 +66,7 @@ class CasManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider setUpSessionChecks
-     */
+    #[DataProvider('setUpSessionChecks')]
     public function testSetsUpSessionIfNeeded(bool $headersSent, string $sessionId, bool $shouldSetSession): void
     {
         $this->sessionProxy->expects($this->once())
@@ -89,7 +86,7 @@ class CasManagerTest extends TestCase
         $this->makeCasManager();
     }
 
-    public function setUpSessionChecks(): array
+    public static function setUpSessionChecks(): array
     {
         return [
             'headers not sent, no session id' => [false, '', true],
@@ -99,9 +96,7 @@ class CasManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider configureCasChecks
-     */
+    #[DataProvider('configureCasChecks')]
     public function testConfiguresCasWithoutSaml(bool $proxy, string $version): void
     {
         $serverType = $proxy ? 'proxy' : 'client';
@@ -127,9 +122,7 @@ class CasManagerTest extends TestCase
         $this->makeCasManager($config);
     }
 
-    /**
-     * @dataProvider configureCasChecks
-     */
+    #[DataProvider('configureCasChecks')]
     public function testConfiguresCasWithSaml(bool $proxy, string $version): void
     {
         $serverType = $proxy ? 'proxy' : 'client';
@@ -154,7 +147,7 @@ class CasManagerTest extends TestCase
         $this->makeCasManager($config);
     }
 
-    public function configureCasChecks(): array
+    public static function configureCasChecks(): array
     {
         return [
             'client' => [false, '2.0'],
@@ -210,9 +203,7 @@ class CasManagerTest extends TestCase
         $this->makeCasManager($config);
     }
 
-    /**
-     * @dataProvider casValidationChecks
-     */
+    #[DataProvider('casValidationChecks')]
     public function testConfiguresCasValidation(?string $casValidation, bool $willValidate): void
     {
         $config = [
@@ -233,7 +224,7 @@ class CasManagerTest extends TestCase
         $this->makeCasManager($config);
     }
 
-    public function casValidationChecks(): array
+    public static function casValidationChecks(): array
     {
         return [
             'no validation' => [null, false],
@@ -266,9 +257,7 @@ class CasManagerTest extends TestCase
         $this->makeCasManager($config);
     }
 
-    /**
-     * @dataProvider fixedServiceUrlChecks
-     */
+    #[DataProvider('fixedServiceUrlChecks')]
     public function testSetsFixedServiceUrlIfGiven(bool $willSet): void
     {
         $config = [
@@ -285,7 +274,7 @@ class CasManagerTest extends TestCase
         $this->makeCasManager($config);
     }
 
-    public function fixedServiceUrlChecks(): array
+    public static function fixedServiceUrlChecks(): array
     {
         return [
             'no url' => [false],
@@ -293,9 +282,7 @@ class CasManagerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider masqueradeChecks
-     */
+    #[DataProvider('masqueradeChecks')]
     public function testSetsMasquerade(?string $masquerade): void
     {
         $config = [
@@ -307,7 +294,7 @@ class CasManagerTest extends TestCase
         $this->assertEquals(!empty($masquerade), $manager->isMasquerading());
     }
 
-    public function masqueradeChecks(): array
+    public static function masqueradeChecks(): array
     {
         return [
             'masquerade' => ['bob'],
@@ -458,9 +445,7 @@ class CasManagerTest extends TestCase
         $manager->logout();
     }
 
-    /**
-     * @dataProvider logoutParameterChecks
-     */
+    #[DataProvider('logoutParameterChecks')]
     public function testLogoutWithParameters(string $url, string $service): void
     {
         $expects = [];
@@ -481,7 +466,7 @@ class CasManagerTest extends TestCase
         $manager->logout($url, $service);
     }
 
-    public function logoutParameterChecks(): array
+    public static function logoutParameterChecks(): array
     {
         return [
             'url' => ['https://example.com', ''],
@@ -514,9 +499,7 @@ class CasManagerTest extends TestCase
         $manager->logoutWithUrl($url);
     }
 
-    /**
-     * @dataProvider authenticatedChecks
-     */
+    #[DataProvider('authenticatedChecks')]
     public function testIsAuthenticated(bool $authenticated): void
     {
         $this->casProxy->expects($this->once())->method('isAuthenticated')
@@ -536,9 +519,7 @@ class CasManagerTest extends TestCase
         $this->assertTrue($manager->isAuthenticated());
     }
 
-    /**
-     * @dataProvider authenticatedChecks
-     */
+    #[DataProvider('authenticatedChecks')]
     public function testCheckAuthentication(bool $authenticated): void
     {
         $this->casProxy->expects($this->once())->method('checkAuthentication')
@@ -549,7 +530,7 @@ class CasManagerTest extends TestCase
         $this->assertEquals($authenticated, $manager->checkAuthentication());
     }
 
-    public function authenticatedChecks(): array
+    public static function authenticatedChecks(): array
     {
         return [
             'is authenticated' => [true],

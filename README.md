@@ -1,25 +1,31 @@
-# Repository Archival Notice – Feb 2025
-As of June 2024, the apereo/phpCAS repository is no longer actively maintained or updated and we have seen no progress on finding new maintainers. As a result, this codebase remains in a stagnant state with end-of-life (EOL) dependencies. To mitigate security risks for new projects, this repository is now scheduled for immediate archival.
+# CAS (Maintained Fork)
 
-We strongly recommend exploring alternative CAS solutions for future development.
+[![Unit tests](https://github.com/panayotisk/cas/actions/workflows/run-tests.yml/badge.svg)](https://github.com/panayotisk/cas/actions/workflows/run-tests.yml)
 
-- IT
+This is a maintained fork of `subfission/cas`, updated for modern Laravel and PHP versions.
 
---- 
+---
 
 # CAS
-Simple CAS Authentication for Laravel 6-11.x.
+Simple CAS Authentication for Laravel 6-13.x.
 
-This version of CAS, or Central Authentication Service, is designed to integrate with Laravel 6-11 projects that need to implement SSO.  
+This version of CAS, or Central Authentication Service, is designed to integrate with Laravel 6-13 projects that need to implement SSO.  
 Older version of Laravel may work, but are untested. This package was built for my necessity but can be easily used for anyone requiring CAS/SAML SSO in Laravel 6+.  This package is different in mindset as the goal in this project is to be as minimal as possible while offering as much flexibility as needed.
 
 This package offers and abstraction of [Apereo CAS](https://www.apereo.org/projects/cas) (phpCAS), a cross platform and open-source *CAS client* and *server* provider.  Be sure to check them out if you intend to implement an SSO service other than AD.
 
-Check out the [wiki](https://github.com/subfission/cas/wiki) for further details.
-
 ## ChangeLog
 
-### Release 5.0.0
+### Release 5.1.0 (Maintained Fork)
+
+* Support added for Laravel 12.x and 13.x
+* Upgraded to PHP 8.2+ requirement (aligning with Laravel 11+)
+* Added PHP 8.4 to CI test matrix
+* Modernized `CasServiceProvider` and test suite (PHP 8 attributes, return types)
+* Upgraded to phpCAS 1.6.2
+* Resolved PHPUnit 11 deprecations
+
+### Release 5.0.0 (Original)
 
 * Support added for Laravel 11.x
 * Added phpCAS log control
