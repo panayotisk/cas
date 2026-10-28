@@ -16,6 +16,13 @@ This package offers and abstraction of [Apereo CAS](https://www.apereo.org/proje
 
 ## ChangeLog
 
+### Release 5.1.1 (Maintained Fork)
+
+* Fixed PHP 8.4 deprecations for implicitly nullable parameters
+* Fixed a deprecation when CAS logging is disabled
+* Preserved PHP 8.2 compatibility; verified tests on PHP 8.2, 8.3, and 8.4
+* Authenticated CI tooling downloads with the GitHub Actions token and updated the checkout action
+
 ### Release 5.1.0 (Maintained Fork)
 
 * Support added for Laravel 12.x and 13.x
